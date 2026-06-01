@@ -27,16 +27,11 @@ with sync_playwright() as p:
 
     page.wait_for_timeout(3000)
 
-    print("=== BOTÕES ===")
+    page.get_by_text("SOLICITAR CITA").click()
 
-    buttons = page.locator("a, button").all()
+    page.wait_for_timeout(5000)
 
-    for b in buttons:
-        try:
-            texto = b.inner_text().strip()
-            if texto:
-                print(texto)
-        except:
-            pass
+    print("=== TEXTO APÓS CLICAR ===")
+    print(page.locator("body").inner_text())
 
     browser.close()
