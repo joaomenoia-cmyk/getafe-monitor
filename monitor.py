@@ -23,14 +23,17 @@ with sync_playwright() as p:
         "https://gestiona.comunidad.madrid/ctac_cita/registro#",
         wait_until="networkidle"
     )
-    print("=== TÍTULO ===")
-    print(page.title())
+    print("=== SELECTS ===")
 
-    print("=== URL ===")
-    print(page.url)
+    for select in page.locator("select").all():
+        try:
+            print("ID:", select.get_attribute("id"))
+            print(select.inner_html()[:1000])
+            print("---------------")
+    except Exception as e:
+            print(e)
 
-    print("=== PRIMEIROS 5000 CARACTERES ===")
-    print(page.content()[:5000])
+browser.close()
     # Aguarda carregamento dos combos
     page.wait_for_timeout(3000)
 
