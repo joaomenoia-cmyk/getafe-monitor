@@ -38,14 +38,12 @@ with sync_playwright() as p:
     )
 
     page.wait_for_timeout(5000)
+    print("=== SERVIÇOS ===")
 
-    print("=== TEXTO APÓS GETAFE ===")
-    print(page.locator("body").inner_text())
+    select_servicos = page.locator("#comboServicios")
 
-    print("=== SELECTS ===")
+    print(select_servicos.inner_html())
 
-    for select in page.locator("select").all():
-        print("ID:", select.get_attribute("id"))
-        print("---------------")
-
+    browser.close()
+    
     browser.close()
