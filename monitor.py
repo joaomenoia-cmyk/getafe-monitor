@@ -14,7 +14,10 @@ def send_telegram(message):
         },
         timeout=30
     )
+# TESTE
+send_telegram("✅ Teste do monitor Getafe")
 
+exit ()
 with sync_playwright() as p:
     browser = p.chromium.launch(headless=True)
 
