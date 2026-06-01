@@ -27,23 +27,26 @@ with sync_playwright() as p:
 
     page.wait_for_timeout(3000)
 
-    # Clica em SOLICITAR CITA
+    # Solicitar cita
     page.get_by_role("link", name="SOLICITAR CITA").click()
 
     page.wait_for_timeout(3000)
 
-    # Seleciona Getafe
+    # Getafe
     page.locator("#combo1").evaluate(
         "(el) => { el.value = '222'; el.dispatchEvent(new Event('change', { bubbles: true })); }"
     )
 
+    page.wait_for_timeout(3000)
+
+    # Expediente de matrimonio
+    page.locator("#comboServicios").evaluate(
+        "(el) => { el.value = '434'; el.dispatchEvent(new Event('change', { bubbles: true })); }"
+    )
+
     page.wait_for_timeout(5000)
-    print("=== SERVIÇOS ===")
 
-    select_servicos = page.locator("#comboServicios")
+    print("=== TEXTO FINAL ===")
+    print(page.locator("body").inner_text())
 
-    print(select_servicos.inner_html())
-
-    browser.close()
-    
     browser.close()
