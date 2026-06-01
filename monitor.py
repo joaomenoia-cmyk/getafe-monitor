@@ -27,7 +27,7 @@ with sync_playwright() as p:
 
     page.wait_for_timeout(3000)
 
-    page.get_by_text("SOLICITAR CITA").click()
+    page.locator('a:has-text("SOLICITAR CITA")').first.click()
 
     page.wait_for_timeout(5000)
 
