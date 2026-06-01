@@ -45,8 +45,20 @@ with sync_playwright() as p:
     )
 
     page.wait_for_timeout(5000)
+    print("=== LINKS ===")
 
-    print("=== TEXTO FINAL ===")
-    print(page.locator("body").inner_text())
+    for a in page.locator("a").all():
 
+        try:
+
+            texto = a.inner_text().strip()
+
+            if texto:
+
+            print(texto)
+
+        except:
+
+            pass
+    
     browser.close()
