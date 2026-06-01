@@ -31,22 +31,3 @@ with sync_playwright() as p:
         print("---------------")
         
 browser.close()
-    # Aguarda carregamento dos combos
-    page.wait_for_timeout(3000)
-
-    content = page.content().lower()
-
-    if "registro civil de getafe" not in content:
-        send_telegram(
-            "⚠️ O monitor não conseguiu localizar os elementos da página. Verifique o portal."
-        )
-
-    if "no hay disponibilidad de cita" not in content:
-        send_telegram(
-            "🚨 ATENÇÃO!\n\n"
-            "Possível vaga detectada para Apertura de Expedientes de Matrimonio em Getafe.\n\n"
-            "Acesse imediatamente:\n"
-            "https://gestiona.comunidad.madrid/ctac_cita/registro#"
-        )
-
-    browser.close()
