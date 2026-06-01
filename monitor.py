@@ -27,9 +27,14 @@ with sync_playwright() as p:
         "(el) => { el.value = '434'; el.dispatchEvent(new Event('change', { bubbles: true })); }"
     )
 
-    page.wait_for_timeout(5000)
+    page.wait_for_timeout(3000)
 
-    print("=== HTML COMPLETO APÓS SERVIÇO ===")
-    print(page.content())
+    # Clica em CONTINUAR
+    page.locator('input[value="Continuar"]').first.click()
+
+    page.wait_for_timeout(8000)
+
+    print("=== APÓS CONTINUAR ===")
+    print(page.locator("body").inner_text())
 
     browser.close()
