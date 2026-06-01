@@ -23,6 +23,16 @@ with sync_playwright() as p:
         "https://gestiona.comunidad.madrid/ctac_cita/registro#",
         wait_until="networkidle"
     )
-    select = page.locator("#combo1")
+    page.wait_for_timeout(3000)
 
-    print(select.inner_html())
+    # Seleciona Getafe
+
+    page.select_option("#combo1", value="222")
+
+    page.wait_for_timeout(5000)
+
+    print("=== TODOS OS SELECTS ===")
+
+    for select in page.locator("select").all():
+        print("ID:", select.get_attribute("id"))
+        print("-------------------")
