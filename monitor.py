@@ -1,19 +1,5 @@
 import os
-import requests
 from playwright.sync_api import sync_playwright
-
-TOKEN = os.environ["TELEGRAM_TOKEN"]
-CHAT_ID = os.environ["CHAT_ID"]
-
-def send_telegram(message):
-    requests.post(
-        f"https://api.telegram.org/bot{TOKEN}/sendMessage",
-        json={
-            "chat_id": CHAT_ID,
-            "text": message
-        },
-        timeout=30
-    )
 
 with sync_playwright() as p:
     browser = p.chromium.launch(headless=True)
@@ -27,31 +13,23 @@ with sync_playwright() as p:
 
     page.wait_for_timeout(3000)
 
-    # Clica em SOLICITAR CITA
     page.get_by_role("link", name="SOLICITAR CITA").click()
 
     page.wait_for_timeout(3000)
 
-    # Seleciona Registro Civil de Getafe
     page.locator("#combo1").evaluate(
         "(el) => { el.value = '222'; el.dispatchEvent(new Event('change', { bubbles: true })); }"
     )
 
     page.wait_for_timeout(3000)
 
-    # Seleciona APERTURA EXPEDIENTES DE MATRIMONIO
     page.locator("#comboServicios").evaluate(
         "(el) => { el.value = '434'; el.dispatchEvent(new Event('change', { bubbles: true })); }"
     )
 
     page.wait_for_timeout(5000)
 
-    print("=== LINKS ===")
-
-    for a in page.locator("a").all():
-        texto = a.inner_text().strip()
-
-        if texto:
-            print(texto)
+    print("=== HTML COMPLETO APÓS SERVIÇO ===")
+    print(page.content())
 
     browser.close()
