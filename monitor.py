@@ -27,38 +27,31 @@ with sync_playwright() as p:
 
     page.wait_for_timeout(3000)
 
-    # Solicitar cita
+    # Clica em SOLICITAR CITA
     page.get_by_role("link", name="SOLICITAR CITA").click()
 
     page.wait_for_timeout(3000)
 
-    # Getafe
+    # Seleciona Registro Civil de Getafe
     page.locator("#combo1").evaluate(
         "(el) => { el.value = '222'; el.dispatchEvent(new Event('change', { bubbles: true })); }"
     )
 
     page.wait_for_timeout(3000)
 
-    # Expediente de matrimonio
+    # Seleciona APERTURA EXPEDIENTES DE MATRIMONIO
     page.locator("#comboServicios").evaluate(
         "(el) => { el.value = '434'; el.dispatchEvent(new Event('change', { bubbles: true })); }"
     )
 
     page.wait_for_timeout(5000)
+
     print("=== LINKS ===")
 
     for a in page.locator("a").all():
+        texto = a.inner_text().strip()
 
-        try:
-
-            texto = a.inner_text().strip()
-
-            if texto:
-
+        if texto:
             print(texto)
 
-        except:
-
-            pass
-    
     browser.close()
