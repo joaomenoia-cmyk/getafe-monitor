@@ -27,11 +27,25 @@ with sync_playwright() as p:
 
     page.wait_for_timeout(3000)
 
-    page.locator('a:has-text("SOLICITAR CITA")').first.click()
+    # Clica em SOLICITAR CITA
+    page.get_by_role("link", name="SOLICITAR CITA").click()
+
+    page.wait_for_timeout(3000)
+
+    # Seleciona Getafe
+    page.locator("#combo1").evaluate(
+        "(el) => { el.value = '222'; el.dispatchEvent(new Event('change', { bubbles: true })); }"
+    )
 
     page.wait_for_timeout(5000)
 
-    print("=== TEXTO APÓS CLICAR ===")
+    print("=== TEXTO APÓS GETAFE ===")
     print(page.locator("body").inner_text())
+
+    print("=== SELECTS ===")
+
+    for select in page.locator("select").all():
+        print("ID:", select.get_attribute("id"))
+        print("---------------")
 
     browser.close()
