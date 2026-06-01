@@ -25,9 +25,18 @@ with sync_playwright() as p:
         wait_until="networkidle"
     )
 
-    page.wait_for_timeout(5000)
+    page.wait_for_timeout(3000)
 
-    print("=== TEXTO DA PÁGINA ===")
-    print(page.locator("body").inner_text())
+    print("=== BOTÕES ===")
+
+    buttons = page.locator("a, button").all()
+
+    for b in buttons:
+        try:
+            texto = b.inner_text().strip()
+            if texto:
+                print(texto)
+        except:
+            pass
 
     browser.close()
