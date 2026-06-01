@@ -26,13 +26,10 @@ with sync_playwright() as p:
     print("=== SELECTS ===")
 
     for select in page.locator("select").all():
-        try:
-            print("ID:", select.get_attribute("id"))
-            print(select.inner_html()[:1000])
-            print("---------------")
-    except Exception as e:
-            print(e)
-
+        print("ID:", select.get_attribute("id"))
+        print(select.inner_html()[:1000])
+        print("---------------")
+        
 browser.close()
     # Aguarda carregamento dos combos
     page.wait_for_timeout(3000)
