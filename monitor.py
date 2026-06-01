@@ -23,14 +23,14 @@ with sync_playwright() as p:
         "https://gestiona.comunidad.madrid/ctac_cita/registro#",
         wait_until="networkidle"
     )
-print("=== TÍTULO ===")
-print(page.title())
+    print("=== TÍTULO ===")
+    print(page.title())
 
-print("=== URL ===")
-print(page.url)
+    print("=== URL ===")
+    print(page.url)
 
-print("=== PRIMEIROS 5000 CARACTERES ===")
-print(page.content()[:5000])
+    print("=== PRIMEIROS 5000 CARACTERES ===")
+    print(page.content()[:5000])
     # Aguarda carregamento dos combos
     page.wait_for_timeout(3000)
 
